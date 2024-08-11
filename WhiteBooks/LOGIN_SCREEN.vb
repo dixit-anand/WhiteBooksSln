@@ -14,8 +14,7 @@ Public Class LOGIN_SCREEN
     Dim PSWD1 As String
     Dim PSWD2 As String
     Private Sub OK_BUTTON_Click(sender As Object, e As EventArgs) Handles OK_BUTTON.Click
-        MsgBox("hello world")
-        'MAIN_SCREEN.Show()
+        MAIN_SCREEN.Show()
     End Sub
 
     Private Sub CANCEL_Click(sender As Object, e As EventArgs) Handles CANCEL.Click
@@ -68,9 +67,6 @@ Public Class LOGIN_SCREEN
 
         End If
         ORANGECONN_LOCAL.Open("Provider=Microsoft.ACE.OLEDB.16.0;Data Source=" & DBASENAME & ";Persist Security Info=False;")
-
-        '3) MS Sql server connection string
-        'FOLLOWING is working SYNTAX AND GIVEN BY SANTOSH KULKARNI
         DATABASE_NAME = "VERSIONINFO"
         If ORANGECONN_SERVER.State = ConnectionState.Open Then
             ORANGECONN_SERVER.Close()
