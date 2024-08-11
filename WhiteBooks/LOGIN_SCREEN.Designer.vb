@@ -37,6 +37,8 @@ Partial Class LOGIN_SCREEN
         FINANCIAL_YEAR = New ComboBox()
         OK_BUTTON = New Button()
         CANCEL = New Button()
+        USER_CODE = New TextBox()
+        Drive1 = New ListBox()
         SuspendLayout()
         ' 
         ' BRANCH_COMBO
@@ -176,12 +178,28 @@ Partial Class LOGIN_SCREEN
         CANCEL.Text = "&Cancel"
         CANCEL.UseVisualStyleBackColor = True
         ' 
+        ' USER_CODE
+        ' 
+        USER_CODE.Location = New Point(214, 42)
+        USER_CODE.Name = "USER_CODE"
+        USER_CODE.Size = New Size(419, 27)
+        USER_CODE.TabIndex = 15
+        ' 
+        ' Drive1
+        ' 
+        Drive1.FormattingEnabled = True
+        Drive1.Location = New Point(204, 273)
+        Drive1.Name = "Drive1"
+        Drive1.Size = New Size(497, 64)
+        Drive1.TabIndex = 16
+        ' 
         ' LOGIN_SCREEN
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(655, 267)
+        ClientSize = New Size(895, 401)
         ControlBox = False
+        Controls.Add(Drive1)
         Controls.Add(CANCEL)
         Controls.Add(OK_BUTTON)
         Controls.Add(Label6)
@@ -197,6 +215,7 @@ Partial Class LOGIN_SCREEN
         Controls.Add(USER_NAME)
         Controls.Add(BRANCH_COMBO)
         Controls.Add(Label5)
+        Controls.Add(USER_CODE)
         KeyPreview = True
         Name = "LOGIN_SCREEN"
         StartPosition = FormStartPosition.CenterScreen
@@ -220,4 +239,6 @@ Partial Class LOGIN_SCREEN
     Friend WithEvents FINANCIAL_YEAR As ComboBox
     Friend WithEvents OK_BUTTON As Button
     Friend WithEvents CANCEL As Button
+    Friend WithEvents USER_CODE As TextBox
+    Friend WithEvents Drive1 As ListBox
 End Class
