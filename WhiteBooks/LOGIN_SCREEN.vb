@@ -241,6 +241,7 @@ ERRMSG:
 
     End Sub
 
+    ' TODO:FIX CURSOR MOVEMENT ISSUE 
     Private Sub USER_CODE_TextChanged(sender As Object, e As EventArgs) Handles USER_CODE.TextChanged
         Dim tbox As TextBox
         tbox = CType(sender, TextBox)
