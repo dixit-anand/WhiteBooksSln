@@ -1,10 +1,11 @@
-﻿Imports System.Windows.Forms
+﻿Imports System.Runtime.CompilerServices
+Imports System.Windows.Forms
 
 Public Class MAIN_SCREEN
 
-    Private Sub ShowNewForm(ByVal sender As Object, ByVal e As EventArgs) Handles NewToolStripMenuItem.Click, NewToolStripButton.Click, NewWindowToolStripMenuItem.Click
+    Private Sub ShowNewForm(ByVal sender As Object, ByVal e As EventArgs) Handles NewWindowToolStripMenuItem.Click
         ' Create a new instance of the child form.
-        Dim ChildForm As New System.Windows.Forms.Form
+        Dim ChildForm As New Form
         ' Make it a child of this MDI form before showing it.
         ChildForm.MdiParent = Me
 
@@ -14,14 +15,8 @@ Public Class MAIN_SCREEN
         ChildForm.Show()
     End Sub
 
-    Private Sub OpenFile(ByVal sender As Object, ByVal e As EventArgs) Handles OpenToolStripMenuItem.Click, OpenToolStripButton.Click
-        Dim OpenFileDialog As New OpenFileDialog
-        OpenFileDialog.InitialDirectory = My.Computer.FileSystem.SpecialDirectories.MyDocuments
-        OpenFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
-        If (OpenFileDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK) Then
-            Dim FileName As String = OpenFileDialog.FileName
-            ' TODO: Add code here to open the file.
-        End If
+    Private Sub OpenFile(ByVal sender As Object, ByVal e As EventArgs)
+        USER_REGFORM.Show()
     End Sub
 
     Private Sub SaveAsToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles SaveAsToolStripMenuItem.Click
@@ -52,9 +47,9 @@ Public Class MAIN_SCREEN
         'Use My.Computer.Clipboard.GetText() or My.Computer.Clipboard.GetData to retrieve information from the clipboard.
     End Sub
 
-    Private Sub ToolBarToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ToolBarToolStripMenuItem.Click
-        Me.ToolStrip.Visible = Me.ToolBarToolStripMenuItem.Checked
-    End Sub
+    'Private Sub ToolBarToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ToolBarToolStripMenuItem.Click
+    '    Me.ToolStrip.Visible = Me.ToolBarToolStripMenuItem.Checked
+    'End Sub
 
     Private Sub StatusBarToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles StatusBarToolStripMenuItem.Click
         Me.StatusStrip.Visible = Me.StatusBarToolStripMenuItem.Checked
@@ -85,4 +80,13 @@ Public Class MAIN_SCREEN
 
     Private m_ChildFormNumber As Integer
 
+    Private Sub CompanyRegistrationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CompanyRegistrationToolStripMenuItem.Click
+        COMPANY_REGFORM.Show()
+    End Sub
+    Private Sub UserRegistrationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserRegistrationToolStripMenuItem.Click
+        'USER_REGFORM UMDI = New USER_REGFORM() 
+        'UMDI.MDIPARENT = Me
+        USER_REGFORM.MdiParent = Me
+        USER_REGFORM.Show()
+    End Sub
 End Class

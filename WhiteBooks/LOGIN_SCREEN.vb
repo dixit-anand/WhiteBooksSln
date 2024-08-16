@@ -233,61 +233,72 @@ ERRMSG:
     End Sub
     Private Sub USER_CODE_KeyDown(sender As Object, e As KeyEventArgs) Handles USER_CODE.KeyDown
         If e.KeyCode = Keys.Enter Then
-            If Mid(USER_CODE.Text, 1, 1) = "" Then
-                USER_CODE.Focus()
-                Exit Sub
-            End If
-            If USERINFO.State = ObjectStateEnum.adStateOpen Then
-                USERINFO.Close()
-            End If
-            If Strings.UCase(Mid(USER_CODE.Text, 1, 1)) = "U" Then
-                USERINFO.Open("SELECT * FROM USERS WHERE USER_ID = '" & Trim(USER_CODE.Text) & "'", ORANGECONN_SERVER, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic)
-                If (USERINFO.BOF = True And USERINFO.EOF = True) Then
-                    MsgBox("The User Code You Entered Is Wrong. Please Try Again.", vbCritical, "Message")
-                    USER_CODE.Text = ""
-                    USER_CODE.Focus()
-                    Exit Sub
-                Else
-                    If Trim(USERINFO.Fields.Item("USER_NAME").Value) = "NIL" Then  '  Or String.IsNullOrEmpty(Trim(USERNAME))
-                        MsgBox("Your User Registration Details Are Not Yet Entered. Please Enter The Details In The Screen Shown Next.", vbInformation, "Message")
-                        USER_REGFORM.Show()
-                        Exit Sub
-                    Else
-                        GLB_UNAME = Trim(USERINFO.Fields.Item("USER_NAME").Value)
-                        PSWD1 = Trim(USERINFO.Fields.Item("USER_PASSWORD").Value)
-                        PSWD2 = Trim(USERINFO.Fields.Item("USER_PASSWORD1").Value)
-                        USER_NAME.Text = GLB_UNAME
-                        USER_PASSWORD.Focus()
-                    End If
-                End If
-            ElseIf Mid(USER_CODE.Text, 1, 1) = "C" Then
-                USERINFO.Open("SELECT * FROM COMPANY WHERE COMPANY_ID = '" & Trim(USER_CODE.Text) & "'", ORANGECONN_SERVER, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic)
-                If (USERINFO.BOF = True And USERINFO.EOF = True) Or Mid(USER_CODE.Text, 1, 1) <> "C" Then
-                    MsgBox("The Company Code You Entered Is Wrong. Please Try Again.", vbCritical, "Message")
-                    USER_CODE.Text = ""
-                    USER_CODE.Focus()
-                    Exit Sub
-                Else
-                    If Trim(USERINFO.Fields.Item("COMPANY_NAME").Value) = "NIL" Then  '  Or String.IsNullOrEmpty(Trim(USERNAME))
-                        MsgBox("Your Company Registration Details Are Not Yet Entered. Please Enter The Details In The Screen Shown Next.", vbInformation, "Message")
-                        COMPANY_REGFORM.Show()
-                        Exit Sub
-                    Else
-                        MsgBox("Your Company Is Already Registered On Server. Please Click On OK To Exit.", vbInformation, "Message")
-                        Application.Exit()
-                        Exit Sub
-                    End If
-                End If
-            ElseIf Mid(USER_CODE.Text, 1, 1) <> "U" Or Mid(USER_CODE.Text, 1, 1) <> "U" Then
-                MsgBox("The User Code Or The Company Code You Entered Is Wrong. Please Try Again.", vbCritical, "Message")
-                USER_CODE.Text = ""
-                USER_CODE.Focus()
-                Exit Sub
-            End If
+            Me.Validate()
         End If
     End Sub
 
     Private Sub USER_PASSWORD_TextChanged(sender As Object, e As EventArgs) Handles USER_PASSWORD.TextChanged
 
+    End Sub
+
+    Private Sub USER_CODE_TextChanged(sender As Object, e As EventArgs) Handles USER_CODE.TextChanged
+        Dim tbox As TextBox
+        tbox = CType(sender, TextBox)
+        tbox.Text = UCase(tbox.Text)
+        tbox.Select(tbox.Text.Length, 0)
+    End Sub
+
+    Private Sub USER_CODE_Validated(sender As Object, e As EventArgs) Handles USER_CODE.Validated
+        If Mid(USER_CODE.Text, 1, 1) = "" Then
+            USER_CODE.Focus()
+            Exit Sub
+        End If
+        If USERINFO.State = ObjectStateEnum.adStateOpen Then
+            USERINFO.Close()
+        End If
+        If Strings.UCase(Mid(USER_CODE.Text, 1, 1)) = "U" Then
+            USERINFO.Open("SELECT * FROM USERS WHERE USER_ID = '" & Trim(USER_CODE.Text) & "'", ORANGECONN_SERVER, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic)
+            If (USERINFO.BOF = True And USERINFO.EOF = True) Then
+                MsgBox("The User Code You Entered Is Wrong. Please Try Again.", vbCritical, "Message")
+                USER_CODE.Text = ""
+                USER_CODE.Focus()
+                Exit Sub
+            Else
+                If Trim(USERINFO.Fields.Item("USER_NAME").Value) = "NIL" Then  '  Or String.IsNullOrEmpty(Trim(USERNAME))
+                    MsgBox("Your User Registration Details Are Not Yet Entered. Please Enter The Details In The Screen Shown Next.", vbInformation, "Message")
+                    USER_REGFORM.Show()
+                    Exit Sub
+                Else
+                    GLB_UNAME = Trim(USERINFO.Fields.Item("USER_NAME").Value)
+                    PSWD1 = Trim(USERINFO.Fields.Item("USER_PASSWORD").Value)
+                    PSWD2 = Trim(USERINFO.Fields.Item("USER_PASSWORD1").Value)
+                    USER_NAME.Text = GLB_UNAME
+                    USER_PASSWORD.Focus()
+                End If
+            End If
+        ElseIf Mid(USER_CODE.Text, 1, 1) = "C" Then
+            USERINFO.Open("SELECT * FROM COMPANY WHERE COMPANY_ID = '" & Trim(USER_CODE.Text) & "'", ORANGECONN_SERVER, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic)
+            If (USERINFO.BOF = True And USERINFO.EOF = True) Or Mid(USER_CODE.Text, 1, 1) <> "C" Then
+                MsgBox("The Company Code You Entered Is Wrong. Please Try Again.", vbCritical, "Message")
+                USER_CODE.Text = ""
+                USER_CODE.Focus()
+                Exit Sub
+            Else
+                If Trim(USERINFO.Fields.Item("COMPANY_NAME").Value) = "NIL" Then  '  Or String.IsNullOrEmpty(Trim(USERNAME))
+                    MsgBox("Your Company Registration Details Are Not Yet Entered. Please Enter The Details In The Screen Shown Next.", vbInformation, "Message")
+                    COMPANY_REGFORM.Show()
+                    Exit Sub
+                Else
+                    MsgBox("Your Company Is Already Registered On Server. Please Click On OK To Exit.", vbInformation, "Message")
+                    Application.Exit()
+                    Exit Sub
+                End If
+            End If
+        ElseIf Mid(USER_CODE.Text, 1, 1) <> "U" Or Mid(USER_CODE.Text, 1, 1) <> "U" Then
+            MsgBox("The User Code Or The Company Code You Entered Is Wrong. Please Try Again.", vbCritical, "Message")
+            USER_CODE.Text = ""
+            USER_CODE.Focus()
+            Exit Sub
+        End If
     End Sub
 End Class
